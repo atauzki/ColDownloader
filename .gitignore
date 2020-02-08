@@ -1,3 +1,7 @@
 thes
 word
 __pycache__
+**/*.pkl
+
+.idea
+*.iml

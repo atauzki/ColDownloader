@@ -22,7 +22,7 @@ def crawl(content):
     if not os.path.isdir(content['dir']):
         os.mkdir(content['dir'])
     word_list = loadWordList(content['list_file'])
-    print("-------------- START CRAWWLING --------------")
+    print("-------------- START CRAWLING --------------")
     pool = Pool(12)
     for item in word_list:
         pool.apply_async(savePage, args=(item, content))

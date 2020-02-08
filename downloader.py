@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 
 def download(item, head):
     url = head + item
-    # Avoid HTTP 403 Forbidden
+    # Avoid HTTP 403 Forbidden: 避免发生403错误
     header = {
         'user-agent':
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.93 Safari/537.36'
