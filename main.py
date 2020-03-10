@@ -7,25 +7,26 @@ from downloader import download
 from pklutils import loadWordList
 
 
-def savePage(item, content):
-    item = item.replace(' ', '-').replace('/', '-').replace('?', '').replace(':', '-')
+def savePage(key, value, content):
+    head = "https://www.collinsdictionary.com/dictionary/english/"
+    item = value.replace(head, '')
+    if item in ['con', 'nul']:
+        item += '_1'
     output_file = content['dir'] + '/' + item + '.html'
     if not os.path.exists(output_file):
-        page = download(item, head=content['url'])
+        page = download(item, None, value)
         html = cleanData(page, content)
         if html is not None:
             with open(output_file, 'w', encoding='utf-8') as f:
-                f.write(html)
+                f.write(key + '\n' + html)
 
 
 def crawl(content):
-    if not os.path.isdir(content['dir']):
-        os.mkdir(content['dir'])
     word_list = loadWordList(content['list_file'])
     print("-------------- START CRAWLING --------------")
     pool = Pool(12)
-    for item in word_list:
-        pool.apply_async(savePage, args=(item, content))
+    for key, value in word_list.items():
+        pool.apply_async(savePage, args=(key, value, content))
     print('------------------ WAITING ------------------')
     pool.close()
     pool.join()
@@ -33,4 +34,4 @@ def crawl(content):
 
 
 if __name__ == "__main__":
-    crawl(variables.thes)
+    crawl(variables.word)

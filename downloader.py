@@ -5,8 +5,9 @@ from requests.exceptions import HTTPError
 from bs4 import BeautifulSoup
 
 
-def download(item, head):
-    url = head + item
+def download(item, head, url=None):
+    if head is not None:
+        url = head + item
     # Avoid HTTP 403 Forbidden: 避免发生403错误
     header = {
         'user-agent':
@@ -14,7 +15,7 @@ def download(item, head):
     }
     try:
         print("Getting url:" + url)
-        response = requests.get(url, headers=header)
+        response = requests.get(url, headers=header, timeout=5)
         response.raise_for_status()
     except HTTPError as err:
         print("There is an HTTP error in your network:\n" + err)
