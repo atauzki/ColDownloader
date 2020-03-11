@@ -2,9 +2,13 @@ import os
 from multiprocessing import Pool
 
 import variables
+import logging
 from data_cleaner import cleanData
 from downloader import download
 from pklutils import loadWordList
+
+file_hanlder = logging.FileHandler(filename='err.log', encoding='utf-8')
+logging.basicConfig(handlers=[file_hanlder], level=logging.WARNING)
 
 
 def savePage(key, value, content):
@@ -15,10 +19,13 @@ def savePage(key, value, content):
     output_file = content['dir'] + '/' + item + '.html'
     if not os.path.exists(output_file):
         page = download(item, None, value)
-        html = cleanData(page, content)
-        if html is not None:
-            with open(output_file, 'w', encoding='utf-8') as f:
-                f.write(key + '\n' + html)
+        if page is None or page.find("span", class_="cf-error-code"):
+            logging.error(f"Failed to get entry: {key}")
+        else:
+            html = cleanData(page, content)
+            if html is not None:
+                with open(output_file, 'w', encoding='utf-8') as f:
+                    f.write(key + '\n' + html)
 
 
 def crawl(content):
@@ -27,7 +34,6 @@ def crawl(content):
     pool = Pool(12)
     for key, value in word_list.items():
         pool.apply_async(savePage, args=(key, value, content))
-    print('------------------ WAITING ------------------')
     pool.close()
     pool.join()
     print('----------------- ALL DONE ------------------')
