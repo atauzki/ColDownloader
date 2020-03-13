@@ -12,9 +12,11 @@ logging.basicConfig(handlers=[file_hanlder], level=logging.WARNING)
 
 
 def savePage(key, value, content):
-    head = "https://www.collinsdictionary.com/dictionary/english/"
+    if not os.path.isdir(content['dir']):
+        os.mkdir(content['dir'])
+    head = content['head']
     item = value.replace(head, '')
-    if item in ['con', 'nul']:
+    if item in ['con', 'aux']:
         item += '_1'
     output_file = content['dir'] + '/' + item + '.html'
     if not os.path.exists(output_file):
@@ -40,4 +42,5 @@ def crawl(content):
 
 
 if __name__ == "__main__":
-    crawl(variables.word)
+    crawl(variables.thes)
+    # savePage("travel", "https://www.collinsdictionary.com/dictionary/english-thesaurus/travel", variables.thes)

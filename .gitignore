@@ -1,8 +1,12 @@
-thes
-word
+thes/
+word/
 __pycache__
 **/*.pkl
 
+extra/
 .idea
 *.iml
 *.log
+*.mdx
+dict.txt
+deriv.txt

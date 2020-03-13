@@ -7,6 +7,7 @@ word = {'browse_url': 'https://www.collinsdictionary.com/browse/english/',
 
 thes = {'browse_url': 'https://www.collinsdictionary.com/browse/english-thesaurus/',
         'url': 'https://www.collinsdictionary.com/english-thesaurus/',
+        'head': 'https://www.collinsdictionary.com/dictionary/english-thesaurus/',
         'list_head': 'synonyms-starting-with-',
         'dir': 'thes',
         'list_file': 'theslist.pkl'}

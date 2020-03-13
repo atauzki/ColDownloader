@@ -19,12 +19,10 @@ def download(item, head, url=None):
     socks.set_default_proxy(socks.SOCKS5, "127.0.0.1", 1080)
     socket.socket = socks.socksocket
     try:
-        # print("Getting url:" + url)
-        response = requests.get(url, headers=header, timeout=5)
+        response = requests.get(url, headers=header, timeout=10)
         response.raise_for_status()
-    except HTTPError as err:
+    except HTTPError:
         pass
-        # print("There is an HTTP error in your network:\n" + err)
     except Exception as e:
         print(e)
     else:
