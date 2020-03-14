@@ -20,7 +20,7 @@ def cleanData(page, content):
             body = '<link rel="stylesheet" href="ced.css"><div class="dc page">'
             tail = '</div>'
             for entry in dict_body:
-                body += str(entry).replace('\n', '')
+                body += str(entry).replace('\n', ' ')
             body += tail
             return body
     elif content == variables.thes:
@@ -43,9 +43,17 @@ def cleanData(page, content):
             i.decompose()
 
         thes_body = page.find_all('div', class_='dc')
-        body = '<link rel="stylesheet" href="ced.css"><div class="dictionary cdet">'
+        body = '<link rel="stylesheet" href="cet.css"><div class="dictionary cdet">'
         tail = '</div>'
         for entry in thes_body:
-            body += str(entry).replace('\n', '')
+            body += str(entry).replace('\n', ' ')
+        body += tail
+        return body
+    else:
+        head0 = page.find("h2", class_="wl")
+        body = page.find("div", class_="he")
+        head = '<link rel="stylesheet" href="cet.css"><div class="dictionary dc cdet page">'
+        tail = "</div>"
+        body = str(head0) + head + str(body).replace("\n", ' ')
         body += tail
         return body

@@ -57,4 +57,8 @@ def test_list(content, word):
 
 
 if __name__ == "__main__":
-    getList(variables.thes)
+    # getList(variables.word)
+    # dicts = loadWordList(variables.word['list_file'])
+    dicts = {}
+    getSubList("https://www.collinsdictionary.com/browse/english/t/thickleaf", dicts, variables.word['head'])
+    dumpWordList(dicts, variables.word['list_file'])
