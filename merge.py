@@ -7,7 +7,7 @@ from mdict_utils.base.readmdict import MDX
 from unidecode import unidecode
 
 
-def merge_file(content):
+def merge_file(content: dict):
     all_files = os.listdir(content['dir'])
     keys = [content['dir'] + "/" + key for key in all_files]
     fout = open(content["dir"] + ".txt", "w", encoding="utf-8")
@@ -54,15 +54,14 @@ def get_wordlist_name():
             value = line.strip()
         if re.match("^<link rel", line):
             soup = BeautifulSoup(line, 'lxml')
-            key = soup.find("h2",
-                            class_="wl").find("span",
-                                              class_="orth").text.strip()
+            # key = soup.find("h2", class_="wl").find("span", class_="orth").text.strip()
+            key = soup.select_one("h2.wl span.orth").text.strip()
             wldict.update({key: value})
     fin.close()
     return wldict
 
 
-def wordlist_fix(wldict):
+def wordlist_fix(wldict: dict):
     fin = open("cet.txt", "r", encoding="utf-8")
     fout = open("cet-fix.txt", "w", encoding="utf-8")
     for line in fin.readlines():

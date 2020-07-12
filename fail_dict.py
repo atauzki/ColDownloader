@@ -1,7 +1,7 @@
 import pickle
 
 f = open("theslist.pkl", "rb")
-word_list = pickle.load(f)
+word_list: dict = pickle.load(f)
 f.close()
 
 fail_fp = open("err.log", "r", encoding="utf-8")

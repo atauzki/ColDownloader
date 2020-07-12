@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 from requests.exceptions import HTTPError
 
 
-def download(item, head, url=None):
+def download(item: str, head: str, url: str = None) -> BeautifulSoup:
     if head is not None:
         url = head + item
     # Avoid HTTP 403 Forbidden: 避免发生403错误

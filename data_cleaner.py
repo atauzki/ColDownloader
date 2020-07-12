@@ -1,13 +1,14 @@
 # coding: utf-8
 import variables
+from bs4 import BeautifulSoup
 
 
-def stripTags(soup, tag, class_name):
+def stripTags(soup: BeautifulSoup, tag: str, class_name: str):
     for i in soup.find_all(tag, class_=class_name):
         i.decompose()
 
 
-def cleanData(page, content):
+def cleanData(page: BeautifulSoup, content: dict) -> str:
     stripTags(page, "div", "socialButtons")
     stripTags(page, "div", "mpuslot_b-container")
     stripTags(page, "div", "copyright")

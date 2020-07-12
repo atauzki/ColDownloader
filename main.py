@@ -11,7 +11,7 @@ file_handler = logging.FileHandler(filename='err.log', encoding='utf-8')
 logging.basicConfig(handlers=[file_handler], level=logging.WARNING)
 
 
-def savePage(key, value, content):
+def savePage(key: str, value: str, content: dict):
     if not os.path.isdir(content['dir']):
         os.mkdir(content['dir'])
     head = content['head']
@@ -30,7 +30,7 @@ def savePage(key, value, content):
                     f.write(key + '\n' + html)
 
 
-def crawl(content):
+def crawl(content: dict):
     word_list = loadWordList(content['list_file'])
     # with open("cet-wordlist.txt", "r", encoding="utf-8") as f:
     #     urls = f.readlines()
